@@ -16,7 +16,7 @@ const SearchBar = () => {
     >
       <TextField
         id="outlined-search"
-        label="Search field"
+        label="ТТН"
         type="search"
         autoComplete="off"
         placeholder="Введіть ТТН номер посилки..."
@@ -24,6 +24,7 @@ const SearchBar = () => {
         onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
           setPackageNumber(evt.target.value)
         }
+        required
         fullWidth
         focused
       />
