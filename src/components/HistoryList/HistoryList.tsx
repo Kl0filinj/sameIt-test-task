@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   IconButton,
   List,
   ListItem,
@@ -10,22 +11,30 @@ import {
 } from '@mui/material';
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { selectHistory } from 'redux/data/data-selectors';
+import { selectHistory, selectIsOnOffices } from 'redux/data/data-selectors';
 import { useAppDispatch, useAppSelector } from 'redux/helpers/hook';
-import { cleanHistory, setPackageCode } from 'redux/data/data-slice';
+import {
+  changePage,
+  cleanHistory,
+  setPackageCode,
+} from 'redux/data/data-slice';
 import { getTrackInfo } from 'redux/data/data-operations';
 
 const HistoryList = () => {
   const historyList = useAppSelector(selectHistory);
+  const isOnOffices = useAppSelector(selectIsOnOffices);
   const dispatch = useAppDispatch();
 
   const onHistoryItemClick = (packageCode: string) => {
+    if (isOnOffices) {
+      dispatch(changePage());
+    }
     dispatch(setPackageCode(packageCode));
     dispatch(getTrackInfo(packageCode));
   };
 
   return (
-    <Box border={3} borderColor="blue" flexBasis={'30%'}>
+    <Box flexBasis={'30%'}>
       <Box
         display={'flex'}
         justifyContent={'space-around'}
@@ -52,15 +61,18 @@ const HistoryList = () => {
       >
         {historyList.length !== 0 ? (
           <>
-            {historyList.map((item, index) => (
-              <ListItem disablePadding key={index}>
-                <ListItemButton
-                  component="button"
-                  onClick={() => onHistoryItemClick(String(item))}
-                >
-                  <ListItemText primary={item} />
-                </ListItemButton>
-              </ListItem>
+            {historyList.map(item => (
+              <Box key={item}>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    component="button"
+                    onClick={() => onHistoryItemClick(item)}
+                  >
+                    <ListItemText primary={item} />
+                  </ListItemButton>
+                </ListItem>
+                <Divider />
+              </Box>
             ))}
           </>
         ) : (

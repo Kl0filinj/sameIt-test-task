@@ -5,11 +5,12 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/helpers/hook';
 import { getTrackInfo } from 'redux/data/data-operations';
 import {
+  selectIsOnOffices,
   selectPackageCode,
   selectPackageDataLoading,
 } from 'redux/data/data-selectors';
 import Alert from 'components/sheared/Alert';
-import { setPackageCode } from 'redux/data/data-slice';
+import { changePage, setPackageCode } from 'redux/data/data-slice';
 
 const SearchBar = () => {
   // const [packageNumber, setPackageNumber] = useState('');
@@ -17,6 +18,7 @@ const SearchBar = () => {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(selectPackageDataLoading);
   const packageNumber = useAppSelector(selectPackageCode);
+  const isOnOffices = useAppSelector(selectIsOnOffices);
 
   const handleAlertClose = (
     event?: React.SyntheticEvent | Event,
@@ -33,6 +35,9 @@ const SearchBar = () => {
     if (packageNumber.length !== 14 || packageNumber.match(/[^0-9]/)) {
       setIsAlertOpen(true);
       return;
+    }
+    if (isOnOffices) {
+      dispatch(changePage());
     }
     dispatch(getTrackInfo(packageNumber));
   };

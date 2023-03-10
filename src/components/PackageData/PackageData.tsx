@@ -4,9 +4,13 @@ import React from 'react';
 import { ITrackInfoResponse } from 'redux/helpers/dataTypes';
 interface PackageDataProps {
   packageData: Partial<ITrackInfoResponse>;
+  isLoading: boolean;
 }
 
-const PackageData: React.FC<PackageDataProps> = ({ packageData }) => {
+const PackageData: React.FC<PackageDataProps> = ({
+  packageData,
+  isLoading,
+}) => {
   const {
     WarehouseSender = 'Відправника не знайдено',
     WarehouseRecipient = 'Отримувача не знайдено',
@@ -18,8 +22,8 @@ const PackageData: React.FC<PackageDataProps> = ({ packageData }) => {
   } = packageData;
 
   return (
-    <Box border={3} borderColor="blue" flexBasis={'60%'}>
-      {Object.keys(packageData).length > 0 && (
+    <Box flexBasis={'70%'}>
+      {Object.keys(packageData).length > 0 && !isLoading && (
         <>
           <Typography
             variant="h2"
@@ -72,7 +76,7 @@ const PackageData: React.FC<PackageDataProps> = ({ packageData }) => {
                 </Typography>
 
                 <Typography variant="h5" component="p">
-                  Вага: {FactualWeight}
+                  Вага: {FactualWeight} кг
                 </Typography>
               </CardContent>
             </Card>

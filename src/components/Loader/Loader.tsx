@@ -3,8 +3,8 @@ import React from 'react';
 
 const Loader = () => {
   return (
-    <Box width={'100%'} textAlign={'center'}>
-      <CircularProgress color="secondary" thickness={4} size={60} />
+    <Box flexBasis={'70%'} textAlign={'center'}>
+      <CircularProgress color={'error'} thickness={4} size={60} />
     </Box>
   );
 };

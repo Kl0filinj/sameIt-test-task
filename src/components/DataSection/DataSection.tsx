@@ -5,25 +5,27 @@ import React from 'react';
 import { useAppSelector } from 'redux/helpers/hook';
 import {
   selectCurrentPackage,
+  selectIsOnOffices,
   selectPackageDataLoading,
 } from 'redux/data/data-selectors';
 import Loader from 'components/Loader/Loader';
+import OfficesList from 'components/OfficesList/OfficesList';
 
 const DataSection: React.FC = () => {
   const currentPackageData = useAppSelector(selectCurrentPackage);
   const isLoading = useAppSelector(selectPackageDataLoading);
-  console.log(isLoading);
+  const isOnOffices = useAppSelector(selectIsOnOffices);
+
   return (
     <Box display={'flex'} justifyContent="space-between">
-      {/* {Object.keys(currentPackageData).length > 0 && (
-        <> */}
-      {!isLoading ? (
-        <PackageData packageData={currentPackageData} />
+      {isLoading && <Loader />}
+
+      {!isOnOffices ? (
+        <PackageData packageData={currentPackageData} isLoading={isLoading} />
       ) : (
-        <Loader />
+        <OfficesList />
       )}
-      {/* </>
-      )} */}
+
       <HistoryList />
     </Box>
   );

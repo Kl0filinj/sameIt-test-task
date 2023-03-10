@@ -9,3 +9,11 @@ export interface ITrackInfoResponse {
   ActualDeliveryDate: string;
   Status: string;
 }
+export interface IOfficesInfoResponse {
+  Description: string;
+  ShortAddress: string;
+  Phone: string;
+  Number: string;
+  SettlementAreaDescription: string;
+  TotalMaxWeightAllowed: string;
+}

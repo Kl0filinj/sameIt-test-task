@@ -1,24 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getTrackInfo } from './data-operations';
+import { getOfficesList, getTrackInfo } from './data-operations';
 import { WritableDraft } from 'immer/dist/internal';
-import { ITrackInfoResponse } from 'redux/helpers/dataTypes';
+import {
+  IOfficesInfoResponse,
+  ITrackInfoResponse,
+} from 'redux/helpers/dataTypes';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 interface IPackageDataState {
   currentPackage: Partial<ITrackInfoResponse>;
-  history: String[];
-  officesList: [];
+  history: string[];
+  officesList: IOfficesInfoResponse[];
+  isOnOffices: boolean;
   packageCode: string;
-  isLoading: Boolean;
-  error: String | null;
+  isLoading: boolean;
+  error: string | null;
 }
 
 const packageDataState: IPackageDataState = {
+  packageCode: '',
   currentPackage: {},
   history: [],
   officesList: [],
-  packageCode: '',
+  isOnOffices: false,
   isLoading: false,
   error: null,
 };
@@ -64,6 +69,24 @@ export const packageData = createSlice({
         (state, action: PayloadAction<string>) => {
           handleRejected(state, action);
         }
+      )
+
+      .addCase(getOfficesList.pending.type, (state, _) => {
+        handlePending(state);
+      })
+      .addCase(
+        getOfficesList.fulfilled.type,
+        (state, action: PayloadAction<IOfficesInfoResponse[]>) => {
+          state.officesList = action.payload;
+          state.isLoading = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        getOfficesList.rejected.type,
+        (state, action: PayloadAction<string>) => {
+          handleRejected(state, action);
+        }
       );
   },
   reducers: {
@@ -72,6 +95,12 @@ export const packageData = createSlice({
     },
     setPackageCode: (state, { payload }) => {
       state.packageCode = payload;
+    },
+    changePage: state => {
+      state.isOnOffices = !state.isOnOffices;
+    },
+    cleanOfficesList: state => {
+      state.officesList = [];
     },
   },
 });
@@ -82,7 +111,8 @@ const persistConfig = {
   whitelist: ['history'],
 };
 
-export const { cleanHistory, setPackageCode } = packageData.actions;
+export const { cleanHistory, setPackageCode, changePage, cleanOfficesList } =
+  packageData.actions;
 export const packageDataReducer = persistReducer(
   persistConfig,
   packageData.reducer
