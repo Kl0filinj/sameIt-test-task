@@ -5,9 +5,11 @@ import {
 import { getTrackInfo } from './data-operations';
 import { WritableDraft } from 'immer/dist/internal';
 import { ITrackInfoResponse } from 'redux/helpers/dataTypes';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 interface IPackageDataState {
-    currentPackage: Object,
+    currentPackage: Partial<ITrackInfoResponse> ,
     history: String[],
     officesList: [],
     isLoading: Boolean,
@@ -61,5 +63,11 @@ export const packageData = createSlice({
   reducers: {},
 });
 
+const persistConfig = {
+  key: 'package-data',
+  storage,
+  whitelist: ['history'],
+};
+
 // export const { addTask, deleteTask } = contactsSlice.actions;
-export const packageDataReducer = packageData.reducer;
+export const packageDataReducer = persistReducer(persistConfig, packageData.reducer);
