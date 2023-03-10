@@ -1,3 +1,13 @@
+import React from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { selectHistory, selectIsOnOffices } from 'redux/data/data-selectors';
+import { useAppDispatch, useAppSelector } from 'redux/helpers/hook';
+import { getTrackInfo } from 'redux/data/data-operations';
+import {
+  changePage,
+  cleanHistory,
+  setPackageCode,
+} from 'redux/data/data-slice';
 import {
   Box,
   Divider,
@@ -9,16 +19,6 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import React from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { selectHistory, selectIsOnOffices } from 'redux/data/data-selectors';
-import { useAppDispatch, useAppSelector } from 'redux/helpers/hook';
-import {
-  changePage,
-  cleanHistory,
-  setPackageCode,
-} from 'redux/data/data-slice';
-import { getTrackInfo } from 'redux/data/data-operations';
 
 const HistoryList: React.FC = () => {
   const historyList = useAppSelector(selectHistory);

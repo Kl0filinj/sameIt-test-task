@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { packageDataReducer } from './data/data-slice';
-
 import {
   persistStore,
   FLUSH,

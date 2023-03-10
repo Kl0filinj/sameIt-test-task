@@ -1,16 +1,16 @@
 import SearchIcon from '@mui/icons-material/Search';
+import { Alert } from 'components/sheared';
 import { IconButton, Snackbar, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/helpers/hook';
 import { getTrackInfo } from 'redux/data/data-operations';
+import { changePage, setPackageCode } from 'redux/data/data-slice';
 import {
   selectIsOnOffices,
   selectPackageCode,
   selectPackageDataLoading,
 } from 'redux/data/data-selectors';
-import Alert from 'components/sheared/Alert';
-import { changePage, setPackageCode } from 'redux/data/data-slice';
 
 const SearchBar: React.FC = () => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
