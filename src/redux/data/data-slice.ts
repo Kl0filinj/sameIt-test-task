@@ -1,7 +1,4 @@
-import {
-  createSlice,
-  PayloadAction
-} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getTrackInfo } from './data-operations';
 import { WritableDraft } from 'immer/dist/internal';
 import { ITrackInfoResponse } from 'redux/helpers/dataTypes';
@@ -9,20 +6,21 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 interface IPackageDataState {
-    currentPackage: Partial<ITrackInfoResponse> ,
-    history: String[],
-    officesList: [],
-    isLoading: Boolean,
-    error: String | null,
+  currentPackage: Partial<ITrackInfoResponse>;
+  history: String[];
+  officesList: [];
+  packageCode: string;
+  isLoading: Boolean;
+  error: String | null;
 }
 
 const packageDataState: IPackageDataState = {
-    currentPackage: {},
-    history: [],
-    officesList: [],
-    isLoading: false,
-    error: null,
-  
+  currentPackage: {},
+  history: [],
+  officesList: [],
+  packageCode: '',
+  isLoading: false,
+  error: null,
 };
 
 const handlePending = (state: WritableDraft<IPackageDataState>) => {
@@ -50,17 +48,32 @@ export const packageData = createSlice({
       .addCase(getTrackInfo.pending.type, (state, _) => {
         handlePending(state);
       })
-      .addCase(getTrackInfo.fulfilled.type, (state, action: PayloadAction<ITrackInfoResponse>) => {
-        state.currentPackage = action.payload
-        state.history = [...state.history, action.payload.Number]
-        state.isLoading = false;
-        state.error = null;
-      })
-      .addCase(getTrackInfo.rejected.type, (state, action: PayloadAction<string>) => {
-        handleRejected(state, action)
-      })
+      .addCase(
+        getTrackInfo.fulfilled.type,
+        (state, action: PayloadAction<ITrackInfoResponse>) => {
+          state.currentPackage = action.payload;
+          if (!state.history.includes(action.payload.Number)) {
+            state.history = [...state.history, action.payload.Number];
+          }
+          state.isLoading = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        getTrackInfo.rejected.type,
+        (state, action: PayloadAction<string>) => {
+          handleRejected(state, action);
+        }
+      );
   },
-  reducers: {},
+  reducers: {
+    cleanHistory: state => {
+      state.history = [];
+    },
+    setPackageCode: (state, { payload }) => {
+      state.packageCode = payload;
+    },
+  },
 });
 
 const persistConfig = {
@@ -69,5 +82,8 @@ const persistConfig = {
   whitelist: ['history'],
 };
 
-// export const { addTask, deleteTask } = contactsSlice.actions;
-export const packageDataReducer = persistReducer(persistConfig, packageData.reducer);
+export const { cleanHistory, setPackageCode } = packageData.actions;
+export const packageDataReducer = persistReducer(
+  persistConfig,
+  packageData.reducer
+);

@@ -8,12 +8,13 @@ interface PackageDataProps {
 
 const PackageData: React.FC<PackageDataProps> = ({ packageData }) => {
   const {
-    WarehouseSender,
-    WarehouseRecipient,
-    FactualWeight,
-    ActualDeliveryDate,
-    DocumentCost,
+    WarehouseSender = 'Відправника не знайдено',
+    WarehouseRecipient = 'Отримувача не знайдено',
+    FactualWeight = '0',
+    ActualDeliveryDate = '-',
+    DocumentCost = '0',
     Number,
+    Status = 'Помилка',
   } = packageData;
 
   return (
@@ -41,7 +42,6 @@ const PackageData: React.FC<PackageDataProps> = ({ packageData }) => {
                   </Typography>
                   <Divider />
                 </Box>
-
                 <Box mb={3}>
                   <Typography variant="h5" color={red[500]} gutterBottom>
                     Отримувач
@@ -51,12 +51,16 @@ const PackageData: React.FC<PackageDataProps> = ({ packageData }) => {
                   </Typography>
                   <Divider />
                 </Box>
-
                 <Typography variant="h5" color={red[500]} gutterBottom>
                   Опис
                 </Typography>
+
                 <Typography variant="h5" component="p">
                   Номер: {Number}
+                </Typography>
+
+                <Typography variant="h5" component="p">
+                  Статус: {Status}
                 </Typography>
 
                 <Typography variant="h5" component="p">
@@ -78,16 +82,5 @@ const PackageData: React.FC<PackageDataProps> = ({ packageData }) => {
     </Box>
   );
 };
-
-// FactualWeight: string,
-// DocumentCost: string,
-// WarehouseRecipient: string,
-// WarehouseSender: string,
-// Number: string,
-
-// CitySender: string,
-// CityRecipient: string,
-
-// ActualDeliveryDate: string,
 
 export default PackageData;
