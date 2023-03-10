@@ -1,9 +1,9 @@
 import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
 import React from 'react';
-import { ITrackInfoResponse } from 'redux/helpers/dataTypes';
+import { ITrackPackageInfo } from 'redux/helpers/dataTypes';
 interface PackageDataProps {
-  packageData: Partial<ITrackInfoResponse>;
+  packageData: Partial<ITrackPackageInfo>;
   isLoading: boolean;
 }
 
@@ -22,7 +22,7 @@ const PackageData: React.FC<PackageDataProps> = ({
   } = packageData;
 
   return (
-    <Box flexBasis={'70%'}>
+    <>
       {Object.keys(packageData).length > 0 && !isLoading && (
         <>
           <Typography
@@ -83,7 +83,7 @@ const PackageData: React.FC<PackageDataProps> = ({
           </Box>
         </>
       )}
-    </Box>
+    </>
   );
 };
 

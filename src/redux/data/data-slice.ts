@@ -1,17 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getOfficesList, getTrackInfo } from './data-operations';
 import { WritableDraft } from 'immer/dist/internal';
-import {
-  IOfficesInfoResponse,
-  ITrackInfoResponse,
-} from 'redux/helpers/dataTypes';
+import { IOfficesInfo, ITrackPackageInfo } from 'redux/helpers/dataTypes';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 interface IPackageDataState {
-  currentPackage: Partial<ITrackInfoResponse>;
+  currentPackage: Partial<ITrackPackageInfo>;
   history: string[];
-  officesList: IOfficesInfoResponse[];
+  officesList: IOfficesInfo[];
   isOnOffices: boolean;
   packageCode: string;
   isLoading: boolean;
@@ -40,11 +37,6 @@ const handleRejected = (
   state.error = action.payload;
 };
 
-// const normalizeState = (state: WritableDraft<IPackageDataState>) => {
-//   state.isLoading = false;
-//   state.error = null;
-// };
-
 export const packageData = createSlice({
   name: 'package-data',
   initialState: packageDataState,
@@ -55,7 +47,7 @@ export const packageData = createSlice({
       })
       .addCase(
         getTrackInfo.fulfilled.type,
-        (state, action: PayloadAction<ITrackInfoResponse>) => {
+        (state, action: PayloadAction<ITrackPackageInfo>) => {
           state.currentPackage = action.payload;
           if (!state.history.includes(action.payload.Number)) {
             state.history = [...state.history, action.payload.Number];
@@ -76,7 +68,7 @@ export const packageData = createSlice({
       })
       .addCase(
         getOfficesList.fulfilled.type,
-        (state, action: PayloadAction<IOfficesInfoResponse[]>) => {
+        (state, action: PayloadAction<IOfficesInfo[]>) => {
           state.officesList = action.payload;
           state.isLoading = false;
           state.error = null;

@@ -4,7 +4,7 @@ import { selectIsOnOffices } from 'redux/data/data-selectors';
 import { changePage } from 'redux/data/data-slice';
 import { useAppDispatch, useAppSelector } from 'redux/helpers/hook';
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
   const dispatch = useAppDispatch();
   const isOnOffices = useAppSelector(selectIsOnOffices);
   return (

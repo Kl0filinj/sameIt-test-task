@@ -8,7 +8,7 @@ import {
   selectIsOnOffices,
   selectPackageDataLoading,
 } from 'redux/data/data-selectors';
-import Loader from 'components/Loader/Loader';
+import Loader from 'components/sheared/Loader';
 import OfficesList from 'components/OfficesList/OfficesList';
 
 const DataSection: React.FC = () => {
@@ -21,12 +21,18 @@ const DataSection: React.FC = () => {
       {isLoading && <Loader />}
 
       {!isOnOffices ? (
-        <PackageData packageData={currentPackageData} isLoading={isLoading} />
+        <Box flexBasis="70%">
+          <PackageData packageData={currentPackageData} isLoading={isLoading} />
+        </Box>
       ) : (
-        <OfficesList />
+        <Box flexBasis="70%">
+          <OfficesList />
+        </Box>
       )}
 
-      <HistoryList />
+      <Box flexBasis="30%">
+        <HistoryList />
+      </Box>
     </Box>
   );
 };

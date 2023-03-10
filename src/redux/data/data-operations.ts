@@ -1,16 +1,13 @@
 import * as api from 'api/packages';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  IOfficesInfoResponse,
-  ITrackInfoResponse,
-} from 'redux/helpers/dataTypes';
+import { IOfficesInfo, ITrackPackageInfo } from 'redux/helpers/dataTypes';
 import {
   axiosError,
   ErrorStatusAndMessage,
 } from 'redux/helpers/rejectErrorTypes';
 
 export const getTrackInfo = createAsyncThunk<
-  ITrackInfoResponse,
+  ITrackPackageInfo,
   string,
   { rejectValue: ErrorStatusAndMessage }
 >('packageData/track', async (packageCode, thunkAPI) => {
@@ -23,7 +20,7 @@ export const getTrackInfo = createAsyncThunk<
 });
 
 export const getOfficesList = createAsyncThunk<
-  IOfficesInfoResponse[],
+  IOfficesInfo[],
   void,
   { rejectValue: ErrorStatusAndMessage }
 >('packageData/offices', async (_, thunkAPI) => {

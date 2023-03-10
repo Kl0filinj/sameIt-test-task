@@ -8,7 +8,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { darkTheme } from 'utils/extendTheme';
 import CssBaseline from '@mui/material/CssBaseline';
 import { PersistGate } from 'redux-persist/integration/react';
-// console.log(darkTheme);
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>

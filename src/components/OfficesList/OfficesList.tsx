@@ -6,7 +6,7 @@ import { selectOfficesList } from 'redux/data/data-selectors';
 import { cleanOfficesList } from 'redux/data/data-slice';
 import { useAppDispatch, useAppSelector } from 'redux/helpers/hook';
 
-const OfficesList = () => {
+const OfficesList: React.FC = () => {
   const dispatch = useAppDispatch();
   const officesList = useAppSelector(selectOfficesList);
 
@@ -18,7 +18,7 @@ const OfficesList = () => {
   }, [dispatch]);
 
   return (
-    <Box flexBasis={'70%'}>
+    <>
       <Typography
         variant="h2"
         fontWeight={'700'}
@@ -77,7 +77,7 @@ const OfficesList = () => {
           </Card>
         )
       )}
-    </Box>
+    </>
   );
 };
 

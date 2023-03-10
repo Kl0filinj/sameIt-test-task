@@ -20,7 +20,7 @@ import {
 } from 'redux/data/data-slice';
 import { getTrackInfo } from 'redux/data/data-operations';
 
-const HistoryList = () => {
+const HistoryList: React.FC = () => {
   const historyList = useAppSelector(selectHistory);
   const isOnOffices = useAppSelector(selectIsOnOffices);
   const dispatch = useAppDispatch();
@@ -34,7 +34,7 @@ const HistoryList = () => {
   };
 
   return (
-    <Box flexBasis={'30%'}>
+    <>
       <Box
         display={'flex'}
         justifyContent={'space-around'}
@@ -81,7 +81,7 @@ const HistoryList = () => {
           </Typography>
         )}
       </List>
-    </Box>
+    </>
   );
 };
 

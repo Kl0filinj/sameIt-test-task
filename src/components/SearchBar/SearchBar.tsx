@@ -12,8 +12,7 @@ import {
 import Alert from 'components/sheared/Alert';
 import { changePage, setPackageCode } from 'redux/data/data-slice';
 
-const SearchBar = () => {
-  // const [packageNumber, setPackageNumber] = useState('');
+const SearchBar: React.FC = () => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(selectPackageDataLoading);
