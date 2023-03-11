@@ -43,11 +43,14 @@ const SearchBar: React.FC = () => {
   return (
     <Box
       m={'auto'}
-      maxWidth="50%"
-      p={3}
       display={'flex'}
       justifyContent={'center'}
       alignItems={'center'}
+      sx={{
+        px: { xs: 0 },
+        py: { xs: 2, md: 4 },
+        maxWidth: { xs: '100%', sm: '80%', md: '60%', lg: '50%' },
+      }}
     >
       <Snackbar
         open={isAlertOpen}

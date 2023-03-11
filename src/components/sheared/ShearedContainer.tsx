@@ -7,7 +7,13 @@ interface ShearedContainerProps {
 
 const ShearedContainer: React.FC<ShearedContainerProps> = ({ children }) => {
   return (
-    <Container maxWidth="lg" sx={{ border: 3, borderColor: 'green' }}>
+    <Container
+      sx={{
+        border: 3,
+        borderColor: 'green',
+        maxWidth: { xs: '600px', sm: '900px', md: '1200px' },
+      }}
+    >
       <Box>{children}</Box>
     </Container>
   );
