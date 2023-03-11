@@ -20,12 +20,12 @@ export const getTrackInfo = createAsyncThunk<
 });
 
 export const getOfficesList = createAsyncThunk<
-  IOfficesInfo[],
-  void,
+  IOfficesInfo,
+  number,
   { rejectValue: ErrorStatusAndMessage }
->('packageData/offices', async (_, thunkAPI) => {
+>('packageData/offices', async (page = 1, thunkAPI) => {
   try {
-    const response = await api.getOfficesInfoList();
+    const response = await api.getOfficesInfoList(page);
     return response;
   } catch (error) {
     return thunkAPI.rejectWithValue(axiosError(error));

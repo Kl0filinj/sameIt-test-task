@@ -1,9 +1,16 @@
-import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  Divider,
+  Pagination,
+  Typography,
+} from '@mui/material';
 import { red } from '@mui/material/colors';
 import { Loader } from 'components/sheared';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getOfficesList } from 'redux/data/data-operations';
-import { selectOfficesList } from 'redux/data/data-selectors';
+import { selectOfficesInfo } from 'redux/data/data-selectors';
 import { cleanOfficesList } from 'redux/data/data-slice';
 import { useAppDispatch, useAppSelector } from 'redux/helpers/hook';
 interface OfficesListProps {
@@ -11,15 +18,16 @@ interface OfficesListProps {
 }
 
 const OfficesList: React.FC<OfficesListProps> = ({ isLoading }) => {
+  const [page, setPage] = useState(1);
+  const { data: officesList, totalCount } = useAppSelector(selectOfficesInfo);
   const dispatch = useAppDispatch();
-  const officesList = useAppSelector(selectOfficesList);
 
   useEffect(() => {
-    dispatch(getOfficesList());
+    dispatch(getOfficesList(page));
     return () => {
       dispatch(cleanOfficesList());
     };
-  }, [dispatch]);
+  }, [dispatch, page]);
 
   return (
     <>
@@ -82,6 +90,16 @@ const OfficesList: React.FC<OfficesListProps> = ({ isLoading }) => {
                 </CardContent>
               </Card>
             )
+          )}
+          {!!totalCount && (
+            <Pagination
+              count={totalCount}
+              page={page}
+              onChange={(_, num) => setPage(num)}
+              color={'standard'}
+              disabled={isLoading}
+              sx={{ display: 'flex', justifyContent: 'center' }}
+            />
           )}
         </>
       ) : (

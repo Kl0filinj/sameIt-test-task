@@ -9,11 +9,15 @@ export interface ITrackPackageInfo {
   ActualDeliveryDate: string;
   Status: string;
 }
-export interface IOfficesInfo {
+export interface IOfficesDataInfo {
   Description: string;
   ShortAddress: string;
   Phone: string;
   Number: string;
   SettlementAreaDescription: string;
   TotalMaxWeightAllowed: string;
+}
+export interface IOfficesInfo {
+  data: IOfficesDataInfo[];
+  totalCount: number;
 }

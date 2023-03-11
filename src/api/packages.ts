@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://api.novaposhta.ua/v2.0/json/';
 const API_KEY = '633a289e89aa24489caf8479765d2b32';
+export const LIMIT_PER_PAGE = 5;
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -64,15 +65,15 @@ export const getTrackPackageInfo = async (credentials: string) => {
   };
 };
 
-export const getOfficesInfoList = async () => {
+export const getOfficesInfoList = async (page: number) => {
   const reqCredentials = reqStructure({
     modelName: 'Address',
     calledMethod: 'getWarehouses',
     methodProperties: {
-      Page: '1',
-      Limit: '5',
+      Page: page,
+      Limit: LIMIT_PER_PAGE,
     },
   });
   const { data } = await instance.post('', reqCredentials);
-  return data.data;
+  return { data: data.data, totalCount: data.info.totalCount };
 };

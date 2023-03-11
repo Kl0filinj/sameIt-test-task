@@ -7,7 +7,7 @@ export const selectHistory = (state: RootState) => state.data.history;
 
 export const selectIsOnOffices = (state: RootState) => state.data.isOnOffices;
 
-export const selectOfficesList = (state: RootState) => state.data.officesList;
+export const selectOfficesInfo = (state: RootState) => state.data.officesList;
 
 export const selectPackageCode = (state: RootState) => state.data.packageCode;
 

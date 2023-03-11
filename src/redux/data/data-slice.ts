@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage';
 interface IPackageDataState {
   currentPackage: Partial<ITrackPackageInfo>;
   history: string[];
-  officesList: IOfficesInfo[];
+  officesList: IOfficesInfo;
   isOnOffices: boolean;
   packageCode: string;
   isLoading: boolean;
@@ -19,7 +19,7 @@ const packageDataState: IPackageDataState = {
   packageCode: '',
   currentPackage: {},
   history: [],
-  officesList: [],
+  officesList: { data: [], totalCount: 0 },
   isOnOffices: false,
   isLoading: false,
   error: null,
@@ -68,7 +68,7 @@ export const packageData = createSlice({
       })
       .addCase(
         getOfficesList.fulfilled.type,
-        (state, action: PayloadAction<IOfficesInfo[]>) => {
+        (state, action: PayloadAction<IOfficesInfo>) => {
           state.officesList = action.payload;
           state.isLoading = false;
           state.error = null;
@@ -92,7 +92,7 @@ export const packageData = createSlice({
       state.isOnOffices = !state.isOnOffices;
     },
     cleanOfficesList: state => {
-      state.officesList = [];
+      state.officesList.data = [];
     },
   },
 });
