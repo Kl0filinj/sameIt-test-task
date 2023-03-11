@@ -1,30 +1,35 @@
-import { Box } from '@mui/system';
-import HistoryList from 'components/HistoryList/HistoryList';
-import PackageData from 'components/PackageData/PackageData';
 import React from 'react';
+import { Box } from '@mui/system';
 import { useAppSelector } from 'redux/helpers/hook';
 import {
   selectCurrentPackage,
+  selectIsOnOffices,
   selectPackageDataLoading,
 } from 'redux/data/data-selectors';
-import Loader from 'components/Loader/Loader';
+import { HistoryList } from 'components/HistoryList';
+import { PackageData } from 'components/PackageData';
+import { OfficesList } from 'components/OfficesList';
 
 const DataSection: React.FC = () => {
   const currentPackageData = useAppSelector(selectCurrentPackage);
   const isLoading = useAppSelector(selectPackageDataLoading);
-  console.log(isLoading);
+  const isOnOffices = useAppSelector(selectIsOnOffices);
+
   return (
     <Box display={'flex'} justifyContent="space-between">
-      {/* {Object.keys(currentPackageData).length > 0 && (
-        <> */}
-      {!isLoading ? (
-        <PackageData packageData={currentPackageData} />
+      {!isOnOffices ? (
+        <Box flexBasis="70%">
+          <PackageData packageData={currentPackageData} isLoading={isLoading} />
+        </Box>
       ) : (
-        <Loader />
+        <Box flexBasis="70%">
+          <OfficesList isLoading={isLoading} />
+        </Box>
       )}
-      {/* </>
-      )} */}
-      <HistoryList />
+
+      <Box flexBasis="30%">
+        <HistoryList />
+      </Box>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-export interface ITrackInfoResponse {
+export interface ITrackPackageInfo {
   FactualWeight: string;
   DocumentCost: string;
   WarehouseRecipient: string;
@@ -8,4 +8,16 @@ export interface ITrackInfoResponse {
   CityRecipient: string;
   ActualDeliveryDate: string;
   Status: string;
+}
+export interface IOfficesDataInfo {
+  Description: string;
+  ShortAddress: string;
+  Phone: string;
+  Number: string;
+  SettlementAreaDescription: string;
+  TotalMaxWeightAllowed: string;
+}
+export interface IOfficesInfo {
+  data: IOfficesDataInfo[];
+  totalCount: number;
 }

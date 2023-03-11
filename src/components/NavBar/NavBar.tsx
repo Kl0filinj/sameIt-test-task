@@ -1,7 +1,12 @@
-import { Box, Button } from '@mui/material';
 import React from 'react';
+import { Box, Button } from '@mui/material';
+import { selectIsOnOffices } from 'redux/data/data-selectors';
+import { changePage } from 'redux/data/data-slice';
+import { useAppDispatch, useAppSelector } from 'redux/helpers/hook';
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const isOnOffices = useAppSelector(selectIsOnOffices);
   return (
     <Box
       display={'flex'}
@@ -11,7 +16,9 @@ const NavBar = () => {
     >
       <Box>
         <Button
-          variant="outlined"
+          variant={isOnOffices ? 'outlined' : 'contained'}
+          onClick={() => dispatch(changePage())}
+          disabled={!isOnOffices}
           color="error"
           size="large"
           sx={{ fontWeight: 700 }}
@@ -21,7 +28,9 @@ const NavBar = () => {
       </Box>
       <Box>
         <Button
-          variant="outlined"
+          variant={isOnOffices ? 'contained' : 'outlined'}
+          onClick={() => dispatch(changePage())}
+          disabled={isOnOffices}
           color="error"
           size="large"
           sx={{ fontWeight: 700 }}

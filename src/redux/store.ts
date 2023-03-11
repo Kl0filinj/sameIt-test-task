@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { packageDataReducer } from './data/data-slice';
-
 import {
   persistStore,
   FLUSH,
@@ -25,5 +24,5 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

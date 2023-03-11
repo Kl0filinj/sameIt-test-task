@@ -1,5 +1,5 @@
-import { Box, Container } from '@mui/material';
 import React from 'react';
+import { Box, Container } from '@mui/material';
 
 interface ShearedContainerProps {
   children: React.ReactNode;
