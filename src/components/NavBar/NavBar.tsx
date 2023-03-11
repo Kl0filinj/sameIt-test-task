@@ -12,7 +12,7 @@ const NavBar: React.FC = () => {
       display={'flex'}
       justifyContent={'space-around'}
       alignItems={'center'}
-      p={3}
+      sx={{ px: { xs: 0 }, py: { xs: 2 } }}
     >
       <Box>
         <Button

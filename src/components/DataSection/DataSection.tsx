@@ -16,18 +16,23 @@ const DataSection: React.FC = () => {
   const isOnOffices = useAppSelector(selectIsOnOffices);
 
   return (
-    <Box display={'flex'} justifyContent="space-between">
+    <Box
+      sx={{
+        display: { xs: 'block', md: 'flex' },
+        justifyContent: { md: 'space-between' },
+      }}
+    >
       {!isOnOffices ? (
-        <Box flexBasis="70%">
+        <Box sx={{ flexBasis: { md: '70%' } }}>
           <PackageData packageData={currentPackageData} isLoading={isLoading} />
         </Box>
       ) : (
-        <Box flexBasis="70%">
+        <Box sx={{ flexBasis: { md: '70%' } }}>
           <OfficesList isLoading={isLoading} />
         </Box>
       )}
 
-      <Box flexBasis="30%">
+      <Box sx={{ flexBasis: { md: '30%' }, mt: { xs: 2, md: 0 } }}>
         <HistoryList />
       </Box>
     </Box>

@@ -39,6 +39,7 @@ const HistoryList: React.FC = () => {
         display={'flex'}
         justifyContent={'space-around'}
         alignItems={'center'}
+        sx={{ justifyContent: { sm: 'space-between' } }}
       >
         <Typography variant="h2" fontWeight={'700'} fontSize={36} gutterBottom>
           Історія пошуку
@@ -67,6 +68,7 @@ const HistoryList: React.FC = () => {
                   <ListItemButton
                     component="button"
                     onClick={() => onHistoryItemClick(item)}
+                    sx={{ textAlign: { sm: 'center' } }}
                   >
                     <ListItemText primary={item} />
                   </ListItemButton>
