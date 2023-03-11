@@ -9,8 +9,6 @@ const ShearedContainer: React.FC<ShearedContainerProps> = ({ children }) => {
   return (
     <Container
       sx={{
-        border: 3,
-        borderColor: 'green',
         maxWidth: { xs: '600px', sm: '900px', md: '1200px' },
       }}
     >
